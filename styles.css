@@ -40,27 +40,11 @@ body::before {
     opacity: 0.4;
 }
 
-@media (hover: hover) and (pointer: fine) {
-    body {
-        cursor: none;
-    }
-}
+/* Cursor is now default - removed custom cursor override */
 
-/* Custom Cursor */
+/* Custom Cursor - Disabled for Instagram browser compatibility */
 .cursor {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--primary-color);
-    border-radius: 6px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%) rotate(0deg);
-    transition: width 0.25s, height 0.25s, background-color 0.25s, transform 0.25s, border-color 0.25s, border-radius 0.25s;
-    background: transparent;
-    mix-blend-mode: difference;
+    display: none !important;
 }
 
 /* Active state for interactive elements -- orange filled diamond */
@@ -1418,4 +1402,60 @@ a, button, .feature-card, .social-link {
 .no-hover .social-link:hover {
     transform: none !important;
     box-shadow: none !important;
+}
+
+/* Instagram Browser Compatibility Fixes */
+@supports (-webkit-touch-callout: none) {
+    /* iOS Safari and Instagram browser detection */
+    .navbar {
+        backdrop-filter: none !important;
+        background: rgba(10, 10, 15, 0.98) !important;
+    }
+
+    .feature-card {
+        backdrop-filter: none !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .social-btn {
+        backdrop-filter: none !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .btn-secondary {
+        backdrop-filter: none !important;
+        background: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    .footer {
+        backdrop-filter: none !important;
+        background: rgba(5, 5, 8, 0.98) !important;
+    }
+
+    .visual-placeholder {
+        backdrop-filter: none !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    /* Disable complex animations in Instagram browser */
+    .feature-card::before {
+        display: none !important;
+    }
+
+    .hero-title {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .orb {
+        animation: none !important;
+        opacity: 0.1 !important;
+    }
+
+    .mesh-background::before,
+    .mesh-background::after {
+        animation: none !important;
+        opacity: 0.2 !important;
+    }
 }
