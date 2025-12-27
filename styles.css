@@ -345,12 +345,12 @@ body:hover .cursor-follower {
 
 .hero-title {
     font-size: 4.5rem;
-    font-weight: 400;
+    font-weight: 700;
     margin-bottom: 2.5rem;
     line-height: 1.1;
-    font-family: 'Playfair Display', 'Space Grotesk', serif;
+    font-family: 'Space Grotesk', sans-serif;
     letter-spacing: 0.01em;
-    font-style: italic;
+    font-style: normal;
 }
 
 .hero-subtitle {
