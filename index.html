@@ -9,12 +9,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
-    
+
     <div class="mesh-background" id="meshBackground"></div>
     
     <div class="gradient-orbs">
@@ -23,54 +24,230 @@
         <div class="orb orb-3"></div>
     </div>
     
-    <div class="content">
-        <div class="logo-container">
-            <h1 class="brand-name">throtl<span class="brand-dot">.</span></h1>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <h1 class="brand-name">throtl<span class="brand-dot">.</span></h1>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span class="material-icons">menu</span>
+            </button>
+            <div class="nav-links">
+                <a href="#hero" class="nav-link">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#stats" class="nav-link">Stats</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
         </div>
-        
-        <div class="main-text">
-            <h2 class="launching-text">
-                <span class="word">
-                    <span class="letter">L</span>
-                    <span class="letter">a</span>
-                    <span class="letter">u</span>
-                    <span class="letter">n</span>
-                    <span class="letter">c</span>
-                    <span class="letter">h</span>
-                    <span class="letter">i</span>
-                    <span class="letter">n</span>
-                    <span class="letter">g</span>
-                </span>
-                <span class="word-break"></span>
-                <span class="word">
-                    <span class="letter">S</span>
-                    <span class="letter">o</span>
-                    <span class="letter">o</span>
-                    <span class="letter">n</span>
-                </span>
-            </h2>
-            <p class="subtitle">The ultimate motorcycle ride tracking experience</p>
-        </div>
-        
-        <!-- Bottom action buttons (only X and Instagram) -->
-        <div class="bottom-actions" role="navigation" aria-label="External links">
-            <a href="https://x.com/ThrotlApp" target="_blank" rel="noopener noreferrer" class="action-btn" aria-label="Throtl on X">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/>
-                </svg>
-            </a>
+    </nav>
 
-            <a href="https://www.instagram.com/throtl.app" target="_blank" rel="noopener noreferrer" class="action-btn" aria-label="Throtl on Instagram">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2" fill="none"/>
-                    <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
-                    <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
-                </svg>
-            </a>
+    <!-- Hero Section -->
+    <section id="hero" class="section hero-section">
+        <div class="hero-content">
+            <div class="hero-content-wrapper">
+                <h1 class="hero-title">Launching Soon</h1>
+                <p class="hero-subtitle">The ultimate motorcycle ride tracking experience</p>
+                <div class="hero-actions">
+                    <a href="#features" class="btn btn-primary">Explore Features</a>
+                    <a href="#contact" class="btn btn-secondary">Get Notified</a>
+                </div>
+            </div>
         </div>
-    </div>
+        <div class="scroll-indicator">
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+            <span>Scroll Down</span>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Powerful Features</h2>
+                <p class="section-subtitle">Everything you need to track, analyze, and share your motorcycle adventures</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">directions_bike</span>
+                    </div>
+                    <h3>GPS Ride Tracking</h3>
+                    <p>Precise GPS tracking with speed monitoring, route recording, and detailed journey logs for every ride.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">analytics</span>
+                    </div>
+                    <h3>Performance Analytics</h3>
+                    <p>Get deep insights into your riding patterns, fuel efficiency, maintenance schedules, and riding statistics.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">terrain</span>
+                    </div>
+                    <h3>Route Planning</h3>
+                    <p>Plan scenic routes, discover new paths, and get real-time navigation assistance for your journeys.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">share</span>
+                    </div>
+                    <h3>Social Sharing</h3>
+                    <p>Share your epic rides with friends and connect with the global motorcycle community worldwide.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">security</span>
+                    </div>
+                    <h3>Safety Features</h3>
+                    <p>Emergency alerts, breakdown assistance, and safety monitoring to keep you protected on the road.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">cloud_sync</span>
+                    </div>
+                    <h3>Cloud Sync</h3>
+                    <p>Automatically sync your ride data across all devices and never lose your valuable journey information.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">About Throtl</h2>
+                    <p class="about-description">
+                        Throtl is revolutionizing the way motorcycle enthusiasts track and experience their rides.
+                        Our app combines cutting-edge GPS technology with intuitive design to provide the most
+                        comprehensive ride tracking experience available.
+                    </p>
+                    <p class="about-description">
+                        Whether you're a weekend warrior or a seasoned rider, Throtl helps you capture every
+                        moment of your journey, analyze your performance, and connect with fellow riders who
+                        share your passion for the open road.
+                    </p>
+                    <div class="about-values">
+                        <div class="value-item">
+                            <h4>Precision</h4>
+                            <p>Accurate tracking and detailed analytics</p>
+                        </div>
+                        <div class="value-item">
+                            <h4>Community</h4>
+                            <p>Connect with riders worldwide</p>
+                        </div>
+                        <div class="value-item">
+                            <h4>Safety</h4>
+                            <p>Your safety is our top priority</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="visual-placeholder">
+                        <span class="material-icons">motorcycle</span>
+                        <p>App Preview Coming Soon</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="section stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Rides Tracked</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500K+</div>
+                    <div class="stat-label">Kilometers Logged</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Countries Reached</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4.8★</div>
+                    <div class="stat-label">User Rating</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2 class="section-title">Stay Connected</h2>
+                    <p class="contact-description">
+                        Be the first to know when Throtl launches. Follow us on social media for updates,
+                        behind-the-scenes content, and exclusive previews.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://x.com/ThrotlApp" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Throtl on X">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/throtl.app" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Throtl on Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="newsletter">
+                    <h3>Get Launch Updates</h3>
+                    <p>Subscribe to our newsletter for exclusive updates and early access.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" class="newsletter-input" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>throtl<span class="brand-dot">.</span></h3>
+                    <p>The ultimate motorcycle ride tracking experience</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Product</h4>
+                        <a href="#features">Features</a>
+                        <a href="#about">About</a>
+                        <a href="#stats">Stats</a>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Company</h4>
+                        <a href="#contact">Contact</a>
+                        <a href="https://x.com/ThrotlApp" target="_blank">Twitter</a>
+                        <a href="https://www.instagram.com/throtl.app" target="_blank">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Throtl. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
     
     <script src="script.js"></script>
 </body>
 </html>
-
