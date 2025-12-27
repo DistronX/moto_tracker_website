@@ -34,6 +34,16 @@ if (!isTouchDevice) {
     document.querySelector('.cursor').style.display = 'none';
     document.querySelector('.cursor-follower').style.display = 'none';
     document.body.style.cursor = 'auto';
+
+    // Add simple touch handlers to give immediate feedback on tap
+    document.querySelectorAll('.feature-card, .social-link').forEach(el => {
+        el.addEventListener('touchstart', () => el.classList.add('tap-active'), { passive: true });
+        el.addEventListener('touchend', () => el.classList.remove('tap-active'), { passive: true });
+        el.addEventListener('touchcancel', () => el.classList.remove('tap-active'), { passive: true });
+    });
+
+    // Prevent some mobile browsers from keeping hover states
+    document.body.classList.add('no-hover');
 }
 
 // Cursor interactions (only on non-touch devices)

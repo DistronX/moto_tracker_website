@@ -551,3 +551,73 @@ html {
     color: var(--bg-dark);
 }
 
+/* --------------------------------
+   Touch-friendly improvements
+   - Larger tap targets
+   - Disable hover-only effects on coarse pointers
+   - Provide :active/tap feedback
+   - Improve focus visibility
+   -------------------------------- */
+
+@media (hover: none) and (pointer: coarse) {
+    /* Hide custom cursor elements on touch devices */
+    .cursor, .cursor-follower { display: none !important; }
+    body { cursor: auto; }
+
+    /* Increase tap targets and spacing */
+    .social-link { width: 56px; height: 56px; }
+    .feature-card { padding: 2.5rem; border-radius: 18px; }
+    .features { gap: 1.75rem; }
+
+    /* Slightly larger headings on touch to improve legibility */
+    .brand-name { font-size: clamp(2.5rem, 6vw, 3.5rem); }
+    .launching-text { font-size: clamp(2rem, 8vw, 3rem); }
+}
+
+/* Provide immediate active feedback on touch/click */
+.feature-card:active,
+.feature-card.tap-active {
+    transform: translateY(-6px);
+    border-color: var(--primary-color);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+
+.social-link:active {
+    transform: translateY(-3px) scale(1.03);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Improve focus visibility for keyboard and assistive devices */
+:focus-visible {
+    outline: 3px solid rgba(20,184,166,0.25);
+    outline-offset: 3px;
+    border-radius: 8px;
+}
+
+/* Make taps snappier and avoid double-tap delays */
+a, button, .feature-card, .social-link {
+    -webkit-tap-highlight-color: rgba(20,184,166,0.12);
+    touch-action: manipulation;
+}
+
+/* Ensure minimum touch target per guidelines */
+@media (max-width: 768px) {
+    .social-link { min-width: 44px; min-height: 44px; }
+    .feature-card { min-height: 120px; }
+    .social-links { gap: 1rem; }
+}
+
+/* Disable hover visual effects when we explicitly set a no-hover class */
+.no-hover .feature-card:hover,
+.no-hover .feature-card::before {
+    transform: none !important;
+    box-shadow: none !important;
+    left: 0 !important;
+}
+
+.no-hover .social-link:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
