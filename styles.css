@@ -520,26 +520,33 @@ body:hover .cursor-follower {
     align-items: center;
 }
 
-/* Invisible App Preview Carousel */
-.app-preview-container {
+/* Clean Carousel - Zero Margins/Padding */
+.carousel-wrapper {
     position: relative;
     width: 320px;
     height: 640px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
+    margin: 0;
+    padding: 0;
 }
 
-.carousel-container {
+.carousel-viewport {
     position: relative;
     width: 100%;
     height: 100%;
-    overflow: visible; /* Changed from hidden to visible to prevent clipping */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.carousel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Removed all visual styling - completely invisible */
 }
 
 .carousel-slide {
@@ -548,9 +555,14 @@ body:hover .cursor-follower {
     left: 0;
     width: 100%;
     height: 100%;
+    margin: 0;
+    padding: 0;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
 }
 
 .carousel-slide.active {
@@ -559,26 +571,30 @@ body:hover .cursor-follower {
     z-index: 1;
 }
 
-.carousel-image {
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
     max-width: 100%;
     max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain; /* Ensures entire image fits without clipping */
+    margin: 0;
+    padding: 0;
     display: block;
-    border-radius: 20px;
-    background: transparent;
+    object-fit: contain;
+    border: none;
+    outline: none;
 }
 
-/* Navigation Arrows */
-.carousel-arrow {
+/* Navigation Buttons - Touch Friendly */
+.carousel-nav {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(12px);
+    width: 56px; /* Larger touch target */
+    height: 56px;
+    margin: 0;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     color: white;
@@ -586,58 +602,79 @@ body:hover .cursor-follower {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
     z-index: 10;
     opacity: 0;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    /* Touch-friendly properties */
+    -webkit-tap-highlight-color: rgba(255, 107, 53, 0.2);
+    touch-action: manipulation;
 }
 
-.app-preview-container:hover .carousel-arrow {
+.carousel-wrapper:hover .carousel-nav {
     opacity: 1;
 }
 
-.carousel-arrow:hover {
+.carousel-nav:hover {
     background: var(--primary-color);
     border-color: var(--primary-color);
     transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 6px 30px rgba(255, 107, 53, 0.4);
+}
+
+/* Touch feedback */
+.carousel-nav:active {
+    transform: translateY(-50%) scale(0.95);
+    background: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .carousel-prev {
-    left: -80px;
+    left: -78px; /* Adjusted for larger buttons */
 }
 
 .carousel-next {
-    right: -80px;
+    right: -78px;
 }
 
-/* Carousel Dots */
-.carousel-dots {
+.carousel-nav svg {
+    width: 24px; /* Larger icon */
+    height: 24px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Indicators */
+.carousel-indicators {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    gap: 16px;
-    margin-top: 1.5rem;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
 }
 
-.carousel-dot {
-    width: 14px;
-    height: 14px;
+.indicator {
+    width: 10px;
+    height: 10px;
+    margin: 0;
+    padding: 0;
     border-radius: 50%;
-    border: 2px solid rgba(255, 107, 53, 0.3);
+    border: 1px solid rgba(255, 107, 53, 0.4);
     background: transparent;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
 }
 
-.carousel-dot.active {
+.indicator.active {
     background: var(--primary-color);
     border-color: var(--primary-color);
-    transform: scale(1.3);
-    box-shadow: 0 0 15px rgba(255, 107, 53, 0.5);
+    transform: scale(1.2);
 }
 
-.carousel-dot:hover {
+.indicator:hover {
     border-color: var(--primary-color);
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
 .visual-placeholder {

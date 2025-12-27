@@ -206,12 +206,12 @@ document.querySelector('.newsletter-form')?.addEventListener('submit', (e) => {
     }
 });
 
-// Phone Mockup Carousel Functionality
-class PhoneCarousel {
+// Clean Carousel Functionality - Zero Margins/Padding
+class CleanCarousel {
     constructor() {
         this.currentSlide = 0;
         this.slides = document.querySelectorAll('.carousel-slide');
-        this.dots = document.querySelectorAll('.carousel-dot');
+        this.indicators = document.querySelectorAll('.indicator');
         this.prevBtn = document.querySelector('.carousel-prev');
         this.nextBtn = document.querySelector('.carousel-next');
         this.autoPlayInterval = null;
@@ -231,9 +231,9 @@ class PhoneCarousel {
             this.nextBtn.addEventListener('click', () => this.nextSlide());
         }
 
-        // Dot navigation
-        this.dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => this.goToSlide(index));
+        // Indicator navigation
+        this.indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => this.goToSlide(index));
         });
 
         // Keyboard navigation
@@ -252,17 +252,17 @@ class PhoneCarousel {
         this.startAutoPlay();
 
         // Pause autoplay on hover
-        const phoneContainer = document.querySelector('.phone-mockup-container');
-        if (phoneContainer) {
-            phoneContainer.addEventListener('mouseenter', () => this.stopAutoPlay());
-            phoneContainer.addEventListener('mouseleave', () => this.startAutoPlay());
+        const carouselWrapper = document.querySelector('.carousel-wrapper');
+        if (carouselWrapper) {
+            carouselWrapper.addEventListener('mouseenter', () => this.stopAutoPlay());
+            carouselWrapper.addEventListener('mouseleave', () => this.startAutoPlay());
         }
     }
 
     goToSlide(index) {
-        // Remove active class from current slide and dot
+        // Remove active class from current slide and indicator
         this.slides[this.currentSlide].classList.remove('active');
-        this.dots[this.currentSlide].classList.remove('active');
+        this.indicators[this.currentSlide].classList.remove('active');
 
         // Update current slide
         this.currentSlide = index;
@@ -274,9 +274,9 @@ class PhoneCarousel {
             this.currentSlide = 0;
         }
 
-        // Add active class to new slide and dot
+        // Add active class to new slide and indicator
         this.slides[this.currentSlide].classList.add('active');
-        this.dots[this.currentSlide].classList.add('active');
+        this.indicators[this.currentSlide].classList.add('active');
 
         // Reset autoplay timer
         this.resetAutoPlay();
@@ -310,38 +310,107 @@ class PhoneCarousel {
     }
 
     initTouchSupport() {
-        const phoneScreen = document.querySelector('.phone-screen');
-        if (!phoneScreen) return;
+        const carouselViewport = document.querySelector('.carousel-viewport');
+        if (!carouselViewport) return;
 
         let startX = 0;
+        let startY = 0;
         let endX = 0;
+        let endY = 0;
+        let isSwiping = false;
+        let startTime = 0;
 
-        phoneScreen.addEventListener('touchstart', (e) => {
+        // Touch start
+        carouselViewport.addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            startTime = Date.now();
+            isSwiping = false;
             this.stopAutoPlay(); // Pause autoplay during touch
-        });
 
-        phoneScreen.addEventListener('touchend', (e) => {
+            // Add visual feedback
+            carouselViewport.style.transition = 'none';
+        }, { passive: false });
+
+        // Touch move - detect if it's a swipe
+        carouselViewport.addEventListener('touchmove', (e) => {
+            if (!startX || !startY) return;
+
+            endX = e.touches[0].clientX;
+            endY = e.touches[0].clientY;
+
+            const diffX = Math.abs(endX - startX);
+            const diffY = Math.abs(endY - startY);
+
+            // If horizontal movement is greater than vertical, it's a swipe
+            if (diffX > diffY && diffX > 10) {
+                isSwiping = true;
+                e.preventDefault(); // Prevent scrolling
+
+                // Add subtle drag feedback
+                const translateX = (endX - startX) * 0.3;
+                carouselViewport.style.transform = `translateX(${translateX}px)`;
+            }
+        }, { passive: false });
+
+        // Touch end
+        carouselViewport.addEventListener('touchend', (e) => {
+            const endTime = Date.now();
+            const touchDuration = endTime - startTime;
+
+            // Reset transform
+            carouselViewport.style.transform = '';
+            carouselViewport.style.transition = '';
+
+            if (!isSwiping) {
+                this.startAutoPlay(); // Resume autoplay if not swiping
+                return;
+            }
+
             endX = e.changedTouches[0].clientX;
-            const diffX = startX - endX;
+            endY = e.changedTouches[0].clientY;
 
-            // Minimum swipe distance
-            if (Math.abs(diffX) > 50) {
-                if (diffX > 0) {
-                    this.nextSlide(); // Swipe left
-                } else {
-                    this.prevSlide(); // Swipe right
+            const diffX = startX - endX;
+            const diffY = Math.abs(startY - endY);
+
+            // Minimum swipe distance (30px) and not too vertical
+            const minSwipeDistance = 30;
+            const maxVerticalThreshold = 50;
+
+            if (Math.abs(diffX) > minSwipeDistance && diffY < maxVerticalThreshold) {
+                // Fast swipe or long swipe
+                if (Math.abs(diffX) > 100 || touchDuration < 300) {
+                    if (diffX > 0) {
+                        this.nextSlide(); // Swipe left - next
+                    } else {
+                        this.prevSlide(); // Swipe right - previous
+                    }
+                } else if (Math.abs(diffX) > minSwipeDistance) {
+                    // Slower, longer swipe
+                    if (diffX > 0) {
+                        this.nextSlide();
+                    } else {
+                        this.prevSlide();
+                    }
                 }
             }
 
-            this.startAutoPlay(); // Resume autoplay
+            // Small delay before resuming autoplay
+            setTimeout(() => {
+                this.startAutoPlay();
+            }, 500);
+        }, { passive: false });
+
+        // Prevent context menu on long press
+        carouselViewport.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
         });
     }
 }
 
 // Initialize carousel when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new PhoneCarousel();
+    new CleanCarousel();
 });
 
 // Performance optimization: Reduce animations on low-end devices
