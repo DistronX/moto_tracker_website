@@ -64,6 +64,22 @@ if (brandName) {
     });
 }
 
+// Scroll Progress Indicator
+const scrollProgressBar = document.querySelector('.scroll-progress-bar');
+
+function updateScrollProgress() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+
+    if (scrollProgressBar) {
+        scrollProgressBar.style.width = scrollPercent + '%';
+    }
+}
+
+window.addEventListener('scroll', updateScrollProgress);
+window.addEventListener('load', updateScrollProgress);
+
 // Navigation functionality
 const navbar = document.querySelector('.navbar');
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
@@ -143,7 +159,28 @@ function updateActiveNavLink() {
     });
 }
 
-window.addEventListener('scroll', updateActiveNavLink);
+// Enhanced scroll effects
+function updateScrollEffects() {
+    const scrolled = window.pageYOffset;
+    const rate = scrolled * -0.5;
+
+    // Parallax effect for background elements
+    const meshBackground = document.querySelector('.mesh-background');
+    if (meshBackground) {
+        meshBackground.style.transform = `translateY(${rate * 0.1}px)`;
+    }
+
+    // Dynamic navbar shadow based on scroll
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        const shadowOpacity = Math.min(scrolled / 200, 0.3);
+        navbar.style.boxShadow = `0 4px 20px rgba(0, 0, 0, ${shadowOpacity})`;
+    }
+
+    updateActiveNavLink();
+}
+
+window.addEventListener('scroll', updateScrollEffects);
 
 // Simple fade-in animation for feature cards
 document.querySelectorAll('.feature-card').forEach((card, index) => {
