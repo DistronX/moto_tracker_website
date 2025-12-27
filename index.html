@@ -99,9 +99,42 @@
                     </div>
                 </div>
                 <div class="about-visual">
-                    <div class="visual-placeholder">
-                        <span class="material-icons">motorcycle</span>
-                        <p>App Preview Coming Soon</p>
+                    <div class="app-preview-container">
+                        <!-- Main App Preview Image -->
+                        <div class="carousel-container">
+                            <div class="carousel-slide active" data-slide="1">
+                                <img src="IMG_3494-portrait.png" alt="Throtl App - Dashboard" class="carousel-image">
+                            </div>
+                            <div class="carousel-slide" data-slide="2">
+                                <img src="IMG_3498-portrait.png" alt="Throtl App - Ride Tracking" class="carousel-image">
+                            </div>
+                            <div class="carousel-slide" data-slide="3">
+                                <img src="IMG_3494-portrait.png" alt="Throtl App - Analytics" class="carousel-image">
+                            </div>
+                            <div class="carousel-slide" data-slide="4">
+                                <img src="IMG_3498-portrait.png" alt="Throtl App - Settings" class="carousel-image">
+                            </div>
+                        </div>
+
+                        <!-- Navigation Arrows -->
+                        <button class="carousel-arrow carousel-prev" aria-label="Previous image">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <button class="carousel-arrow carousel-next" aria-label="Next image">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+
+                        <!-- Carousel Dots -->
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" data-slide="1" aria-label="Go to slide 1"></button>
+                            <button class="carousel-dot" data-slide="2" aria-label="Go to slide 2"></button>
+                            <button class="carousel-dot" data-slide="3" aria-label="Go to slide 3"></button>
+                            <button class="carousel-dot" data-slide="4" aria-label="Go to slide 4"></button>
+                        </div>
                     </div>
                 </div>
             </div>

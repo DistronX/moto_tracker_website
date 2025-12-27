@@ -206,6 +206,144 @@ document.querySelector('.newsletter-form')?.addEventListener('submit', (e) => {
     }
 });
 
+// Phone Mockup Carousel Functionality
+class PhoneCarousel {
+    constructor() {
+        this.currentSlide = 0;
+        this.slides = document.querySelectorAll('.carousel-slide');
+        this.dots = document.querySelectorAll('.carousel-dot');
+        this.prevBtn = document.querySelector('.carousel-prev');
+        this.nextBtn = document.querySelector('.carousel-next');
+        this.autoPlayInterval = null;
+        this.autoPlayDelay = 4000; // 4 seconds
+
+        this.init();
+    }
+
+    init() {
+        if (this.slides.length === 0) return;
+
+        // Set up event listeners
+        if (this.prevBtn) {
+            this.prevBtn.addEventListener('click', () => this.prevSlide());
+        }
+        if (this.nextBtn) {
+            this.nextBtn.addEventListener('click', () => this.nextSlide());
+        }
+
+        // Dot navigation
+        this.dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => this.goToSlide(index));
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                this.prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                this.nextSlide();
+            }
+        });
+
+        // Touch/swipe support
+        this.initTouchSupport();
+
+        // Start autoplay
+        this.startAutoPlay();
+
+        // Pause autoplay on hover
+        const phoneContainer = document.querySelector('.phone-mockup-container');
+        if (phoneContainer) {
+            phoneContainer.addEventListener('mouseenter', () => this.stopAutoPlay());
+            phoneContainer.addEventListener('mouseleave', () => this.startAutoPlay());
+        }
+    }
+
+    goToSlide(index) {
+        // Remove active class from current slide and dot
+        this.slides[this.currentSlide].classList.remove('active');
+        this.dots[this.currentSlide].classList.remove('active');
+
+        // Update current slide
+        this.currentSlide = index;
+
+        // Handle wraparound
+        if (this.currentSlide < 0) {
+            this.currentSlide = this.slides.length - 1;
+        } else if (this.currentSlide >= this.slides.length) {
+            this.currentSlide = 0;
+        }
+
+        // Add active class to new slide and dot
+        this.slides[this.currentSlide].classList.add('active');
+        this.dots[this.currentSlide].classList.add('active');
+
+        // Reset autoplay timer
+        this.resetAutoPlay();
+    }
+
+    nextSlide() {
+        this.goToSlide(this.currentSlide + 1);
+    }
+
+    prevSlide() {
+        this.goToSlide(this.currentSlide - 1);
+    }
+
+    startAutoPlay() {
+        this.stopAutoPlay(); // Clear any existing interval
+        this.autoPlayInterval = setInterval(() => {
+            this.nextSlide();
+        }, this.autoPlayDelay);
+    }
+
+    stopAutoPlay() {
+        if (this.autoPlayInterval) {
+            clearInterval(this.autoPlayInterval);
+            this.autoPlayInterval = null;
+        }
+    }
+
+    resetAutoPlay() {
+        this.stopAutoPlay();
+        this.startAutoPlay();
+    }
+
+    initTouchSupport() {
+        const phoneScreen = document.querySelector('.phone-screen');
+        if (!phoneScreen) return;
+
+        let startX = 0;
+        let endX = 0;
+
+        phoneScreen.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            this.stopAutoPlay(); // Pause autoplay during touch
+        });
+
+        phoneScreen.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+
+            // Minimum swipe distance
+            if (Math.abs(diffX) > 50) {
+                if (diffX > 0) {
+                    this.nextSlide(); // Swipe left
+                } else {
+                    this.prevSlide(); // Swipe right
+                }
+            }
+
+            this.startAutoPlay(); // Resume autoplay
+        });
+    }
+}
+
+// Initialize carousel when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new PhoneCarousel();
+});
+
 // Performance optimization: Reduce animations on low-end devices
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.querySelectorAll('*').forEach(el => {
