@@ -36,7 +36,7 @@ if (!isTouchDevice) {
     document.body.style.cursor = 'auto';
 
     // Add simple touch handlers to give immediate feedback on tap
-    document.querySelectorAll('.feature-card, .social-link').forEach(el => {
+    document.querySelectorAll('.feature-card, .social-link, .action-btn').forEach(el => {
         el.addEventListener('touchstart', () => el.classList.add('tap-active'), { passive: true });
         el.addEventListener('touchend', () => el.classList.remove('tap-active'), { passive: true });
         el.addEventListener('touchcancel', () => el.classList.remove('tap-active'), { passive: true });
@@ -49,18 +49,14 @@ if (!isTouchDevice) {
 // Cursor interactions (only on non-touch devices)
 if (!isTouchDevice) {
     const cursor = document.querySelector('.cursor');
-    const interactiveElements = document.querySelectorAll('a, .feature-card');
+    const interactiveElements = document.querySelectorAll('a, .feature-card, .action-btn');
     interactiveElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
-            cursor.style.width = '40px';
-            cursor.style.height = '40px';
-            cursor.style.borderColor = '#14b8a6';
+            if (cursor) cursor.classList.add('cursor--active');
         });
         
         el.addEventListener('mouseleave', () => {
-            cursor.style.width = '20px';
-            cursor.style.height = '20px';
-            cursor.style.borderColor = '#ff6b35';
+            if (cursor) cursor.classList.remove('cursor--active');
         });
     });
 }
@@ -75,6 +71,8 @@ canvas.style.width = '100%';
 canvas.style.height = '100%';
 canvas.style.opacity = '0.3';
 meshBackground.appendChild(canvas);
+
+/* background gradient video/canvas removed per user request */
 
 const ctx = canvas.getContext('2d');
 let animationId;

@@ -51,41 +51,58 @@ body::before {
     width: 20px;
     height: 20px;
     border: 2px solid var(--primary-color);
-    border-radius: 50%;
+    /* default is a small rounded square (not a perfect circle) */
+    border-radius: 6px;
     position: fixed;
     top: 0;
     left: 0;
     pointer-events: none;
     z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s, height 0.3s, border-color 0.3s;
+    transform: translate(-50%, -50%) rotate(0deg);
+    transition: width 0.25s, height 0.25s, background-color 0.25s, transform 0.25s, border-color 0.25s, border-radius 0.25s;
+    background: transparent;
     mix-blend-mode: difference;
+}
+
+/* Active state for interactive elements -- orange filled diamond */
+.cursor--active {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--primary-color);
+    border-color: transparent;
+    transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .cursor-follower {
     width: 40px;
     height: 40px;
-    border: 1px solid rgba(255, 107, 53, 0.3);
-    border-radius: 50%;
+    border: 1px solid rgba(255, 107, 53, 0.22);
+    border-radius: 8px; /* rounded square follower */
     position: fixed;
     top: 0;
     left: 0;
     pointer-events: none;
     z-index: 9998;
     transform: translate(-50%, -50%);
-    transition: width 0.5s, height 0.5s, opacity 0.3s;
+    transition: width 0.45s, height 0.45s, opacity 0.3s, border-color 0.25s;
     mix-blend-mode: difference;
 }
 
+/* On any hover, show the rotated filled orange variant */
 body:hover .cursor {
     width: 30px;
     height: 30px;
-    border-color: var(--accent-teal);
+    background: var(--primary-color);
+    border-color: transparent;
+    transform: translate(-50%, -50%) rotate(45deg);
+    border-radius: 8px;
 }
 
 body:hover .cursor-follower {
     width: 60px;
     height: 60px;
+    border-color: rgba(255, 107, 53, 0.25);
 }
 
 /* Animated Mesh Background */
@@ -99,6 +116,8 @@ body:hover .cursor-follower {
     overflow: hidden;
     opacity: 0.4;
 }
+
+/* background video removed - no canvas fallback */
 
 .mesh-background::before {
     content: '';
@@ -224,28 +243,38 @@ body:hover .cursor-follower {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 8rem 2rem 2rem; /* top padding to avoid overlap with fixed logo */
     text-align: center;
 }
 
-/* Logo */
+/* Logo - fixed top */
 .logo-container {
-    margin-bottom: 3rem;
-    animation: fadeInUp 1s ease-out;
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    margin: 0;
+    will-change: opacity, transform;
+    /* Use a subtle fade with 'both' so it doesn't snap back */
+    animation: fadeIn 0.9s cubic-bezier(0.2,0.9,0.2,1) both;
+    pointer-events: auto; /* allow hover/focus interactions on the brand */
 }
 
 .brand-name {
     font-size: 4rem;
-    font-weight: 700;
+    font-weight: 900;
     letter-spacing: 0.05em;
     color: var(--text-primary);
     text-transform: lowercase;
-    margin-top: 1rem;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
+    margin-top: 0; /* remove margin that can cause visual jump */
+    font-family: 'Archivo Black', 'Space Grotesk', 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 .brand-dot {
@@ -269,6 +298,25 @@ body:hover .cursor-follower {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.2;
+    position: relative;
+}
+
+.launching-text::after {
+    content: '';
+    display: block;
+    width: 160px;
+    height: 10px;
+    margin: 1rem auto 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(255,107,53,0.18), rgba(20,184,166,0.12), rgba(247,147,30,0.12));
+    filter: blur(18px);
+    opacity: 0.85;
+    animation: glowPulse 3.5s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { transform: scaleX(0.98); opacity: 0.75; }
+    50% { transform: scaleX(1.03); opacity: 1; }
 }
 
 .launching-text .word {
@@ -428,7 +476,7 @@ body:hover .cursor-follower {
     opacity: 0.9;
 }
 
-/* Social Links */
+/* Social Links (legacy) */
 .social-links {
     display: flex;
     gap: 1.5rem;
@@ -457,6 +505,50 @@ body:hover .cursor-follower {
     transform: translateY(-5px) scale(1.1);
     box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
 }
+
+/* Bottom action buttons (fixed, centered) */
+.bottom-actions {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 30;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.action-btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    backdrop-filter: blur(12px) saturate(1.1);
+    border: 1px solid rgba(255,255,255,0.06);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: transform 0.28s cubic-bezier(0.2,0.9,0.2,1), box-shadow 0.28s;
+    text-decoration: none;
+    box-shadow: 0 6px 30px rgba(10,10,12,0.45);
+}
+
+.action-btn svg { width: 22px; height: 22px; }
+
+.action-btn:hover {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 14px 40px rgba(20,184,166,0.12);
+    color: var(--primary-color);
+    border-color: rgba(255,107,53,0.16);
+}
+
+@media (max-width: 480px) {
+    .action-btn { width: 56px; height: 56px; }
+}
+
 
 /* Footer */
 .footer {
