@@ -773,6 +773,54 @@ body:hover .cursor-follower {
     min-width: 300px;
 }
 
+/* App Icon Showcase */
+.app-icon-showcase {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.app-icon-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.app-icon-container:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 40px rgba(255, 107, 53, 0.2);
+}
+
+.app-icon-image {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    border-radius: 24px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.app-icon-container h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.app-icon-container p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+    text-align: center;
+    max-width: 200px;
+}
+
 .social-links-large {
     display: flex;
     flex-direction: column;
