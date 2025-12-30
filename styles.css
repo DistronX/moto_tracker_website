@@ -238,7 +238,7 @@ body:hover .cursor-follower {
     height: 60px;
     width: auto;
     object-fit: contain;
-    filter: brightness(0) invert(1); /* Make it white to match the text */
+    /* Dark theme logo - no filter needed */
 }
 
 .footer-logo {
@@ -246,7 +246,7 @@ body:hover .cursor-follower {
     width: auto;
     object-fit: contain;
     margin-bottom: 1rem;
-    filter: brightness(0) invert(1); /* Make it white to match the text */
+    /* Dark theme logo - no filter needed */
 }
 
 .nav-links {
