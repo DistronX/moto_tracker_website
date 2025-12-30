@@ -327,6 +327,29 @@ body:hover .cursor-follower {
     width: 100%;
 }
 
+/* Hero App Icon */
+.hero-app-icon {
+    margin-bottom: 2rem;
+    animation: heroIconFadeIn 1.2s ease-out forwards;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.hero-icon-image {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    border-radius: 28px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.hero-icon-image:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3), 0 0 0 1px rgba(255, 107, 53, 0.3);
+}
+
 .hero-title {
     font-size: 4.5rem;
     font-weight: 700;
@@ -1025,6 +1048,17 @@ body:hover .cursor-follower {
     from {
         opacity: 0;
         transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroIconFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
     }
     to {
         opacity: 1;
