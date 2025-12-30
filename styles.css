@@ -234,6 +234,21 @@ body:hover .cursor-follower {
     margin: 0;
 }
 
+.logo-image {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Make it white to match the text */
+}
+
+.footer-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    filter: brightness(0) invert(1); /* Make it white to match the text */
+}
+
 .nav-links {
     display: flex;
     gap: 2rem;
