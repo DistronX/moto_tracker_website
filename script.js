@@ -162,13 +162,12 @@ function updateActiveNavLink() {
 // Enhanced scroll effects
 function updateScrollEffects() {
     const scrolled = window.pageYOffset;
-    const rate = scrolled * -0.5;
 
-    // Parallax effect for background elements
-    const meshBackground = document.querySelector('.mesh-background');
-    if (meshBackground) {
-        meshBackground.style.transform = `translateY(${rate * 0.1}px)`;
-    }
+    // Parallax disabled - was causing scroll artifacts at bottom
+    // const meshBackground = document.querySelector('.mesh-background');
+    // if (meshBackground) {
+    //     meshBackground.style.transform = `translateY(${rate * 0.1}px)`;
+    // }
 
     // Dynamic navbar shadow based on scroll
     const navbar = document.querySelector('.navbar');
@@ -425,21 +424,21 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 function createParticles() {
     const particlesContainer = document.getElementById('particles');
     if (!particlesContainer) return;
-    
+
     const particleCount = 20; // Reduced for performance
     const colors = ['#ff6b35', '#f7931e', '#14b8a6'];
-    
+
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
-        
+
         // Random properties
         const size = Math.random() * 4 + 2;
         const left = Math.random() * 100;
         const delay = Math.random() * 15;
         const duration = Math.random() * 10 + 15;
         const color = colors[Math.floor(Math.random() * colors.length)];
-        
+
         particle.style.cssText = `
             width: ${size}px;
             height: ${size}px;
@@ -448,7 +447,7 @@ function createParticles() {
             animation-delay: ${delay}s;
             animation-duration: ${duration}s;
         `;
-        
+
         particlesContainer.appendChild(particle);
     }
 }
@@ -477,3 +476,6 @@ const animateOnScroll = new IntersectionObserver((entries) => {
 document.querySelectorAll('.feature-card, .section-header, .about-text, .about-visual').forEach(el => {
     animateOnScroll.observe(el);
 });
+
+// Hero background now uses CSS animated gradient mesh (Option C)
+// Mouse-following effect removed in favor of smoother CSS animation
