@@ -420,3 +420,60 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         el.style.transition = 'none';
     });
 }
+
+// Floating Particles Generator
+function createParticles() {
+    const particlesContainer = document.getElementById('particles');
+    if (!particlesContainer) return;
+    
+    const particleCount = 20; // Reduced for performance
+    const colors = ['#ff6b35', '#f7931e', '#14b8a6'];
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random properties
+        const size = Math.random() * 4 + 2;
+        const left = Math.random() * 100;
+        const delay = Math.random() * 15;
+        const duration = Math.random() * 10 + 15;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        particle.style.cssText = `
+            width: ${size}px;
+            height: ${size}px;
+            left: ${left}%;
+            background: ${color};
+            animation-delay: ${delay}s;
+            animation-duration: ${duration}s;
+        `;
+        
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// Initialize particles on load
+document.addEventListener('DOMContentLoaded', () => {
+    createParticles();
+});
+
+// Intersection Observer for scroll-triggered animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const animateOnScroll = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate-visible');
+            animateOnScroll.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Observe elements for scroll animation
+document.querySelectorAll('.feature-card, .section-header, .about-text, .about-visual').forEach(el => {
+    animateOnScroll.observe(el);
+});

@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Throtl - Launching Soon</title>
+    <meta name="description" content="Throtl is the ultimate motorcycle ride tracking app. Record your rides, analyze performance, track your smoothness score, and improve your riding.">
+    <meta property="og:title" content="Throtl - Launching Soon">
+    <meta property="og:description" content="The ultimate motorcycle ride tracking experience. GPS tracking, performance analytics, and safety scoring.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="app-icon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/png" href="app-icon.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +24,9 @@
     <div class="cursor-follower"></div>
 
     <div class="mesh-background" id="meshBackground"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
     
     <div class="gradient-orbs">
         <div class="orb orb-1"></div>
@@ -55,11 +65,11 @@
                 <div class="hero-app-icon">
                     <img src="app-icon.png" alt="Throtl App Icon" class="hero-icon-image">
                 </div>
-                <h1 class="hero-title">Launching Soon</h1>
+                <h1 class="hero-title gradient-text">Launching Soon</h1>
                 <p class="hero-subtitle">The ultimate motorcycle ride tracking experience</p>
                 <div class="hero-actions">
-                    <a href="#features" class="btn btn-primary">Explore Features</a>
-                    <a href="#contact" class="btn btn-secondary">Get Notified</a>
+                    <a href="#features" class="btn btn-primary btn-glow">Explore Features</a>
+                    <a href="#contact" class="btn btn-secondary">Follow Us</a>
                 </div>
             </div>
         </div>
@@ -76,7 +86,7 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2 class="section-title">About Throtl</h2>
+                    <h2 class="section-title">About <span class="gradient-text">Throtl</span></h2>
                     <p class="about-description">
                         Throtl is revolutionizing the way motorcycle enthusiasts track and experience their rides.
                         Our app combines cutting-edge GPS technology with intuitive design to provide the most
@@ -84,8 +94,8 @@
                     </p>
                     <p class="about-description">
                         Whether you're a weekend warrior or a seasoned rider, Throtl helps you capture every
-                        moment of your journey, analyze your performance, and connect with fellow riders who
-                        share your passion for the open road.
+                        moment of your journey, analyze your performance, and improve your riding skills
+                        with our unique smoothness scoring system.
                     </p>
                     <div class="about-values">
                         <div class="value-item">
@@ -93,12 +103,12 @@
                             <p>Accurate tracking and detailed analytics</p>
                         </div>
                         <div class="value-item">
-                            <h4>Community</h4>
-                            <p>Connect with riders worldwide</p>
+                            <h4>Safety</h4>
+                            <p>Smoothness scoring for better riding</p>
                         </div>
                         <div class="value-item">
-                            <h4>Safety</h4>
-                            <p>Your safety is our top priority</p>
+                            <h4>Insights</h4>
+                            <p>Track your progress over time</p>
                         </div>
                     </div>
                 </div>
@@ -148,51 +158,73 @@
     <section id="features" class="section features-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Powerful Features</h2>
-                <p class="section-subtitle">Everything you need to track, analyze, and share your motorcycle adventures</p>
+                <h2 class="section-title">Powerful <span class="gradient-text">Features</span></h2>
+                <p class="section-subtitle">Everything you need to track, analyze, and improve your motorcycle adventures</p>
             </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <span class="material-icons">directions_bike</span>
+            
+            <!-- Available Now -->
+            <div class="features-category">
+                <h3 class="category-title"><span class="badge badge-live">Available Now</span></h3>
+                <div class="features-grid">
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon">
+                            <span class="material-icons">directions_bike</span>
+                        </div>
+                        <h3>GPS Ride Tracking</h3>
+                        <p>Precise GPS tracking with speed monitoring, route recording, and detailed journey logs for every ride.</p>
                     </div>
-                    <h3>GPS Ride Tracking</h3>
-                    <p>Precise GPS tracking with speed monitoring, route recording, and detailed journey logs for every ride.</p>
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon">
+                            <span class="material-icons">analytics</span>
+                        </div>
+                        <h3>Performance Analytics</h3>
+                        <p>Deep insights into your riding patterns — distance, speed, duration, and acceleration analysis.</p>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon">
+                            <span class="material-icons">security</span>
+                        </div>
+                        <h3>Smoothness Scoring</h3>
+                        <p>Our unique algorithm scores your riding smoothness, helping you become a safer, more consistent rider.</p>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon">
+                            <span class="material-icons">cloud_sync</span>
+                        </div>
+                        <h3>Cloud Sync</h3>
+                        <p>Automatically sync your ride data across all devices. Works offline and syncs when connected.</p>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <span class="material-icons">analytics</span>
+            </div>
+
+            <!-- Coming Soon -->
+            <div class="features-category">
+                <h3 class="category-title"><span class="badge badge-soon">Coming Soon</span></h3>
+                <div class="features-grid features-coming-soon">
+                    <div class="feature-card glass-card coming-soon-card">
+                        <span class="coming-soon-badge">Coming Soon</span>
+                        <div class="feature-icon">
+                            <span class="material-icons">terrain</span>
+                        </div>
+                        <h3>Route Planning</h3>
+                        <p>Plan scenic routes, discover new paths, and get navigation assistance for your journeys.</p>
                     </div>
-                    <h3>Performance Analytics</h3>
-                    <p>Get deep insights into your riding patterns, fuel efficiency, maintenance schedules, and riding statistics.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <span class="material-icons">terrain</span>
+                    <div class="feature-card glass-card coming-soon-card">
+                        <span class="coming-soon-badge">Coming Soon</span>
+                        <div class="feature-icon">
+                            <span class="material-icons">share</span>
+                        </div>
+                        <h3>Social Sharing</h3>
+                        <p>Share your epic rides with friends and connect with the global motorcycle community.</p>
                     </div>
-                    <h3>Route Planning</h3>
-                    <p>Plan scenic routes, discover new paths, and get real-time navigation assistance for your journeys.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <span class="material-icons">share</span>
+                    <div class="feature-card glass-card coming-soon-card">
+                        <span class="coming-soon-badge">Coming Soon</span>
+                        <div class="feature-icon">
+                            <span class="material-icons">emergency</span>
+                        </div>
+                        <h3>Emergency Features</h3>
+                        <p>Emergency alerts and safety monitoring to keep you protected on the road.</p>
                     </div>
-                    <h3>Social Sharing</h3>
-                    <p>Share your epic rides with friends and connect with the global motorcycle community worldwide.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <span class="material-icons">security</span>
-                    </div>
-                    <h3>Safety Features</h3>
-                    <p>Emergency alerts, breakdown assistance, and safety monitoring to keep you protected on the road.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <span class="material-icons">cloud_sync</span>
-                    </div>
-                    <h3>Cloud Sync</h3>
-                    <p>Automatically sync your ride data across all devices and never lose your valuable journey information.</p>
                 </div>
             </div>
         </div>
@@ -207,7 +239,7 @@
                 <div class="contact-info">
                     <div class="contact-text-and-buttons">
                         <div class="contact-text-content">
-                            <h2 class="section-title">Stay Connected</h2>
+                            <h2 class="section-title">Stay <span class="gradient-text">Connected</span></h2>
                             <p class="contact-description">
                                 Be the first to know when Throtl launches. Follow us on social media for updates,
                                 behind-the-scenes content, and exclusive previews.
@@ -259,7 +291,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Throtl. All rights reserved.</p>
+                <p>&copy; 2026 Throtl. All rights reserved.</p>
             </div>
         </div>
     </footer>
