@@ -44,52 +44,107 @@ body::before {
     opacity: 0.4;
 }
 
-/* Cursor is now default - removed custom cursor override */
+/* Hide default cursor on desktop */
+@media (hover: hover) and (pointer: fine) {
+    body {
+        cursor: none;
+    }
 
-/* Custom Cursor - Disabled for Instagram browser compatibility */
+    a,
+    button,
+    .btn,
+    .feature-card,
+    .nav-link,
+    .social-btn,
+    .carousel-nav,
+    .indicator {
+        cursor: none;
+    }
+}
+
+/* Custom Cursor - Premium Redesign */
 .cursor {
-    display: none !important;
-}
-
-/* Active state for interactive elements -- orange filled diamond */
-.cursor--active {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    background: var(--primary-color);
-    border-color: transparent;
-    transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.cursor-follower {
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(255, 107, 53, 0.22);
-    border-radius: 8px;
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+    border-radius: 50%;
     position: fixed;
     top: 0;
     left: 0;
     pointer-events: none;
-    z-index: 9998;
+    z-index: 10000;
     transform: translate(-50%, -50%);
-    transition: width 0.45s, height 0.45s, opacity 0.3s, border-color 0.25s;
+    transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease, background 0.2s ease;
     mix-blend-mode: difference;
 }
 
-/* On any hover, show the rotated filled orange variant */
-body:hover .cursor {
-    width: 30px;
-    height: 30px;
-    background: var(--primary-color);
-    border-color: transparent;
-    transform: translate(-50%, -50%) rotate(45deg);
-    border-radius: 8px;
+/* Active state - expands and glows orange */
+.cursor.cursor--active {
+    width: 16px;
+    height: 16px;
+    background: #ffffff;
 }
 
-body:hover .cursor-follower {
+/* Click state */
+.cursor.cursor--click {
+    transform: translate(-50%, -50%) scale(0.8);
+}
+
+/* Cursor follower ring */
+.cursor-follower {
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+        height 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+        border-color 0.3s ease,
+        background 0.3s ease,
+        opacity 0.3s ease;
+    mix-blend-mode: difference;
+    backdrop-filter: blur(1px);
+}
+
+/* Follower active state - expands with orange accent */
+.cursor-follower.cursor--active {
     width: 60px;
     height: 60px;
-    border-color: rgba(255, 107, 53, 0.25);
+    border-color: rgba(255, 107, 53, 0.6);
+    background: rgba(255, 107, 53, 0.08);
+}
+
+/* Text hover state */
+.cursor.cursor--text {
+    width: 4px;
+    height: 24px;
+    border-radius: 2px;
+    background: var(--primary-color);
+}
+
+.cursor-follower.cursor--text {
+    width: 50px;
+    height: 50px;
+    border-color: rgba(255, 107, 53, 0.3);
+}
+
+/* Hide on touch/mobile */
+@media (hover: none),
+(pointer: coarse) {
+
+    .cursor,
+    .cursor-follower {
+        display: none !important;
+    }
+
+    body {
+        cursor: auto;
+    }
 }
 
 /* Animated Mesh Background */
@@ -336,13 +391,13 @@ body:hover .cursor-follower {
     width: 200%;
     height: 200%;
     background:
-        radial-gradient(circle at 30% 20%, rgba(255, 107, 53, 0.6) 0%, transparent 40%),
-        radial-gradient(circle at 70% 80%, rgba(20, 184, 166, 0.55) 0%, transparent 40%),
-        radial-gradient(circle at 80% 30%, rgba(247, 147, 30, 0.5) 0%, transparent 35%),
-        radial-gradient(circle at 20% 70%, rgba(139, 92, 246, 0.45) 0%, transparent 35%);
+        radial-gradient(circle at 30% 20%, rgba(255, 80, 30, 0.55) 0%, transparent 40%),
+        radial-gradient(circle at 70% 80%, rgba(0, 210, 180, 0.5) 0%, transparent 40%),
+        radial-gradient(circle at 80% 30%, rgba(255, 160, 0, 0.48) 0%, transparent 35%),
+        radial-gradient(circle at 20% 70%, rgba(160, 80, 255, 0.45) 0%, transparent 35%);
     z-index: -1;
-    animation: gradientMeshMove 15s ease-in-out infinite;
-    filter: blur(40px);
+    animation: gradientMeshMove 18s ease-in-out infinite;
+    filter: blur(25px);
 }
 
 .hero-section::after {
@@ -353,31 +408,31 @@ body:hover .cursor-follower {
     width: 200%;
     height: 200%;
     background:
-        radial-gradient(circle at 60% 40%, rgba(255, 107, 53, 0.5) 0%, transparent 35%),
-        radial-gradient(circle at 40% 60%, rgba(20, 184, 166, 0.45) 0%, transparent 40%),
-        radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.4) 0%, transparent 30%);
+        radial-gradient(circle at 60% 40%, rgba(255, 80, 30, 0.48) 0%, transparent 35%),
+        radial-gradient(circle at 40% 60%, rgba(0, 210, 180, 0.42) 0%, transparent 40%),
+        radial-gradient(circle at 25% 25%, rgba(120, 100, 255, 0.4) 0%, transparent 30%);
     z-index: -1;
-    animation: gradientMeshMove 20s ease-in-out infinite reverse;
-    filter: blur(50px);
+    animation: gradientMeshMove 24s ease-in-out infinite reverse;
+    filter: blur(28px);
 }
 
 @keyframes gradientMeshMove {
 
     0%,
     100% {
-        transform: translate(0%, 0%) rotate(0deg);
+        transform: translate(0%, 0%) rotate(0deg) scale(1);
     }
 
     25% {
-        transform: translate(5%, -5%) rotate(2deg);
+        transform: translate(10%, -8%) rotate(4deg) scale(1.05);
     }
 
     50% {
-        transform: translate(-3%, 3%) rotate(-1deg);
+        transform: translate(-6%, 6%) rotate(-3deg) scale(0.98);
     }
 
     75% {
-        transform: translate(-5%, -3%) rotate(1deg);
+        transform: translate(-10%, -6%) rotate(3deg) scale(1.03);
     }
 }
 
@@ -406,14 +461,14 @@ body:hover .cursor-follower {
     height: 140px;
     object-fit: contain;
     border-radius: 28px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 
 .hero-icon-image:hover {
     transform: scale(1.05) translateY(-5px);
-    box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3), 0 0 0 1px rgba(255, 107, 53, 0.3);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
 }
 
 .hero-title {
@@ -428,11 +483,12 @@ body:hover .cursor-follower {
 
 .hero-subtitle {
     font-size: 1.1rem;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.85);
     margin-bottom: 3rem;
     line-height: 1.6;
     font-weight: 400;
     letter-spacing: 0.01em;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .hero-actions {
@@ -490,60 +546,47 @@ body:hover .cursor-follower {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    animation: bounce 2s infinite;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.scroll-mouse {
-    width: 24px;
-    height: 36px;
-    border: 2px solid var(--text-secondary);
-    border-radius: 12px;
-    position: relative;
+.scroll-indicator:hover {
+    transform: translateX(-50%) translateY(-3px);
 }
 
-.scroll-wheel {
-    width: 4px;
-    height: 8px;
-    background: var(--text-secondary);
-    border-radius: 2px;
-    position: absolute;
-    top: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: scroll 2s infinite;
+.scroll-text {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
 }
 
-@keyframes bounce {
+.scroll-arrow-container {
+    animation: scrollBounce 2s ease-in-out infinite;
+}
+
+.scroll-arrow-icon {
+    width: 28px;
+    height: 28px;
+    color: rgba(255, 255, 255, 0.8);
+    transition: color 0.3s ease;
+}
+
+.scroll-indicator:hover .scroll-arrow-icon {
+    color: var(--primary-color);
+}
+
+@keyframes scrollBounce {
 
     0%,
-    20%,
-    50%,
-    80%,
     100% {
-        transform: translateX(-50%) translateY(0);
+        transform: translateY(0);
     }
 
-    40% {
-        transform: translateX(-50%) translateY(-10px);
-    }
-
-    60% {
-        transform: translateX(-50%) translateY(-5px);
-    }
-}
-
-@keyframes scroll {
-    0% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(10px);
+    50% {
+        transform: translateY(8px);
     }
 }
 
@@ -2027,22 +2070,7 @@ button,
     }
 }
 
-/* Hero Icon Glow Animation */
-.hero-icon-image {
-    animation: iconPulse 3s ease-in-out infinite;
-}
-
-@keyframes iconPulse {
-
-    0%,
-    100% {
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
-    }
-
-    50% {
-        box-shadow: 0 12px 60px rgba(255, 107, 53, 0.3), 0 0 30px rgba(255, 107, 53, 0.2), 0 0 0 1px rgba(255, 107, 53, 0.3);
-    }
-}
+/* Hero Icon Shadow - Simple drop shadow */
 
 /* Hero Title Animation */
 @keyframes heroIconFadeIn {

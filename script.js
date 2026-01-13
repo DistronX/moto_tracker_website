@@ -1,4 +1,4 @@
-// Custom Cursor (compatible with static hosting)
+// Custom Cursor - Premium Edition
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
 if (!isTouchDevice) {
@@ -10,7 +10,9 @@ if (!isTouchDevice) {
         let mouseY = 0;
         let followerX = 0;
         let followerY = 0;
+        let isHovering = false;
 
+        // Main cursor follows mouse instantly
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -19,10 +21,11 @@ if (!isTouchDevice) {
             cursor.style.top = mouseY + 'px';
         });
 
-        // Smooth follower animation
+        // Smooth follower with easing
         function animateFollower() {
-            followerX += (mouseX - followerX) * 0.1;
-            followerY += (mouseY - followerY) * 0.1;
+            const ease = isHovering ? 0.15 : 0.12;
+            followerX += (mouseX - followerX) * ease;
+            followerY += (mouseY - followerY) * ease;
 
             cursorFollower.style.left = followerX + 'px';
             cursorFollower.style.top = followerY + 'px';
@@ -31,16 +34,42 @@ if (!isTouchDevice) {
         }
         animateFollower();
 
-        // Cursor interactions
-        const interactiveElements = document.querySelectorAll('a, .feature-card, .action-btn');
+        // Interactive elements - expand on hover
+        const interactiveElements = document.querySelectorAll('a, button, .btn, .feature-card, .nav-link, .social-btn, .carousel-nav, .indicator');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
+                isHovering = true;
                 cursor.classList.add('cursor--active');
+                cursorFollower.classList.add('cursor--active');
             });
 
             el.addEventListener('mouseleave', () => {
+                isHovering = false;
                 cursor.classList.remove('cursor--active');
+                cursorFollower.classList.remove('cursor--active');
             });
+        });
+
+        // Click animation
+        document.addEventListener('mousedown', () => {
+            cursor.classList.add('cursor--click');
+            cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.9)';
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.classList.remove('cursor--click');
+            cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+            cursorFollower.style.opacity = '0';
+        });
+
+        document.addEventListener('mouseenter', () => {
+            cursor.style.opacity = '1';
+            cursorFollower.style.opacity = '1';
         });
     }
 } else {
@@ -87,10 +116,33 @@ const navLinks = document.querySelector('.nav-links');
 
 // Mobile menu toggle
 if (mobileMenuToggle && navLinks) {
-    mobileMenuToggle.addEventListener('click', () => {
+    let menuToggleHandled = false;
+
+    function toggleMobileMenu(e) {
+        // Prevent event from bubbling to document click handler
+        e.stopPropagation();
+
+        // Prevent double-firing on devices that fire both touch and click
+        if (menuToggleHandled) {
+            menuToggleHandled = false;
+            return;
+        }
+
         navLinks.classList.toggle('mobile-open');
         const isOpen = navLinks.classList.contains('mobile-open');
         mobileMenuToggle.innerHTML = `<span class="material-icons">${isOpen ? 'close' : 'menu'}</span>`;
+        mobileMenuToggle.setAttribute('aria-expanded', isOpen);
+
+        // Mark as handled to prevent double-fire from touch + click
+        menuToggleHandled = true;
+        setTimeout(() => { menuToggleHandled = false; }, 300);
+    }
+
+    // Add both click and touchend for reliable mobile support
+    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+    mobileMenuToggle.addEventListener('touchend', (e) => {
+        e.preventDefault(); // Prevent ghost click
+        toggleMobileMenu(e);
     });
 
     // Close mobile menu when clicking on a link
@@ -98,14 +150,26 @@ if (mobileMenuToggle && navLinks) {
         if (e.target.classList.contains('nav-link')) {
             navLinks.classList.remove('mobile-open');
             mobileMenuToggle.innerHTML = '<span class="material-icons">menu</span>';
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
         }
     });
 
     // Close mobile menu when clicking outside
     document.addEventListener('click', (e) => {
-        if (!navbar.contains(e.target)) {
+        // Check if click is outside both the toggle button and nav links
+        if (!mobileMenuToggle.contains(e.target) && !navLinks.contains(e.target)) {
             navLinks.classList.remove('mobile-open');
             mobileMenuToggle.innerHTML = '<span class="material-icons">menu</span>';
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // Also handle touch events for closing menu when tapping outside
+    document.addEventListener('touchend', (e) => {
+        if (!mobileMenuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+            navLinks.classList.remove('mobile-open');
+            mobileMenuToggle.innerHTML = '<span class="material-icons">menu</span>';
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
         }
     });
 }
@@ -452,10 +516,10 @@ function createParticles() {
     }
 }
 
-// Initialize particles on load
-document.addEventListener('DOMContentLoaded', () => {
-    createParticles();
-});
+// Particles disabled - remove floating dots background
+// document.addEventListener('DOMContentLoaded', () => {
+//     createParticles();
+// });
 
 // Intersection Observer for scroll-triggered animations
 const observerOptions = {
